@@ -25,6 +25,7 @@ function App() {
                 applications.map((app) => (
                     <div
                         key={app.id}
+                        onClick={() => navigate(`/applications/${app.id}`)}
                         style={{
                             border: "1px solid gray",
                             margin: "10px 0",
@@ -36,7 +37,7 @@ function App() {
                         <p><strong>Role:</strong> {app.roleTitle}</p>
                         <p><strong>Location:</strong> {app.location}</p>
                         <p><strong>Status:</strong> {app.status}</p>
-                        <p><strong>Id:</strong> {app.id}</p>
+
                         <button
                             onClick={async () => {
                                 try {
