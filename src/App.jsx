@@ -4,6 +4,13 @@ import {useNavigate} from "react-router-dom";
 function App() {
     const [applications, setApplications] = useState([]);
     const navigate = useNavigate();
+    const statusOptions = [
+        "APPLIED",
+        "INTERVIEW",
+        "OFFER",
+        "REJECTED",
+        "WITHDRAWN"
+    ];
 
     useEffect(() => {
         fetch("http://localhost:8080/applications")
@@ -44,7 +51,45 @@ function App() {
                                         <p className="subtitle">Role: {app.roleTitle}</p>
                                     </div>
 
-                                    <span className="statusBadge">{app.status}</span>
+                                    <select
+                                        className="statusSelect"
+                                        value={app.status}
+                                        onClick={(e) => e.stopPropagation()}
+                                        onChange={async (e) => {
+                                            e.stopPropagation();
+
+                                            const newStatus = e.target.value;
+
+                                            try {
+                                                const res = await fetch(`http://localhost:8080/applications/${app.id}`, {
+                                                    method: "PATCH",
+                                                    headers: {
+                                                        "Content-Type": "application/json"
+                                                    },
+                                                    body: JSON.stringify({ status: newStatus })
+                                                });
+
+                                                if (!res.ok) {
+                                                    throw new Error("Failed to update status");
+                                                }
+
+                                                const updatedApplication = await res.json();
+
+                                                setApplications(applications.map((a) =>
+                                                    a.id === app.id ? updatedApplication : a
+                                                ));
+                                            } catch (err) {
+                                                console.error(err);
+                                                alert(err.message);
+                                            }
+                                        }}
+                                    >
+                                        {statusOptions.map((status) => (
+                                            <option key={status} value={status}>
+                                                {status}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
 
                                 <p><strong>Location:</strong> {app.location}</p>
