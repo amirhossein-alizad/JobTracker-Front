@@ -13,54 +13,70 @@ function App() {
     }, []);
 
     return (
-        <div style={{padding: "20px"}}>
-            <h1>Applications</h1>
-
-            <button onClick={() => navigate("/create")}>
-                + Add Application
-            </button>
-            {applications.length === 0 ? (
-                <p>No applications found.</p>
-            ) : (
-                applications.map((app) => (
-                    <div
-                        key={app.id}
-                        onClick={() => navigate(`/applications/${app.id}`)}
-                        style={{
-                            border: "1px solid gray",
-                            margin: "10px 0",
-                            padding: "10px",
-                            borderRadius: "8px"
-                        }}
-                    >
-                        <h3><strong>Company:</strong> {app.company}</h3>
-                        <p><strong>Role:</strong> {app.roleTitle}</p>
-                        <p><strong>Location:</strong> {app.location}</p>
-                        <p><strong>Status:</strong> {app.status}</p>
-
-                        <button
-                            onClick={async () => {
-                                try {
-                                    const res = await fetch(`http://localhost:8080/applications?id=` + app.id, {
-                                        method: "DELETE"
-                                    });
-
-                                    if (!res.ok) {
-                                        throw new Error("Failed to delete application");
-                                    }
-
-                                    setApplications(applications.filter(a => a.id !== app.id));
-                                } catch (err) {
-                                    console.error(err);
-                                    alert(err.message);
-                                }
-                            }}
-                        >
-                            - Remove Application
-                        </button>
+        <div className="page">
+            <div className="container">
+                <div className="topBar">
+                    <div>
+                        <h1>Applications</h1>
+                        <p className="subtitle">Track your job applications</p>
                     </div>
-                ))
-            )}
+
+                    <button className="btn primary" onClick={() => navigate("/create")}>
+                        + Add Application
+                    </button>
+                </div>
+
+                {applications.length === 0 ? (
+                    <div className="card">
+                        <p className="empty">No applications found.</p>
+                    </div>
+                ) : (
+                    <div className="list">
+                        {applications.map((app) => (
+                            <div
+                                key={app.id}
+                                className="listItem"
+                                onClick={() => navigate(`/applications/${app.id}`)}
+                            >
+                                <div className="topBar">
+                                    <div>
+                                        <h3>Company: {app.company}</h3>
+                                        <p className="subtitle">Role: {app.roleTitle}</p>
+                                    </div>
+
+                                    <span className="statusBadge">{app.status}</span>
+                                </div>
+
+                                <p><strong>Location:</strong> {app.location}</p>
+
+                                <button
+                                    className="btn danger"
+                                    onClick={async (e) => {
+                                        e.stopPropagation();
+
+                                        try {
+                                            const res = await fetch(`http://localhost:8080/applications?id=${app.id}`, {
+                                                method: "DELETE"
+                                            });
+
+                                            if (!res.ok) {
+                                                throw new Error("Failed to delete application");
+                                            }
+
+                                            setApplications(applications.filter(a => a.id !== app.id));
+                                        } catch (err) {
+                                            console.error(err);
+                                            alert(err.message);
+                                        }
+                                    }}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
