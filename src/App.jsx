@@ -55,6 +55,7 @@ function App() {
                                         className="statusSelect"
                                         value={app.status}
                                         onClick={(e) => e.stopPropagation()}
+                                        onMouseDown={(e) => e.stopPropagation()}
                                         onChange={async (e) => {
                                             e.stopPropagation();
 
