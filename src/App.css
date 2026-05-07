@@ -171,3 +171,10 @@ body {
   padding: 14px;
   border-radius: 10px;
 }
+
+.notesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}

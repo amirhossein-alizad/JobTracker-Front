@@ -94,7 +94,20 @@ function ApplicationDetails() {
                     <p><strong>Salary:</strong> {application.salaryMin} - {application.salaryMax}</p>
                 </div>
 
-                <h2>Notes</h2>
+                <div className="notesHeader">
+                    <h2>Notes</h2>
+
+                    <button
+                        className="btn primary"
+                        onClick={() => navigate("/notes/create", {
+                            state: {
+                                applicationId: application.id
+                            }
+                        })}
+                    >
+                        + Add Note
+                    </button>
+                </div>
 
                 {notes.length === 0 ? (
                     <p className="empty">No notes</p>
