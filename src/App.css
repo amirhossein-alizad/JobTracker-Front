@@ -172,9 +172,23 @@ body {
   border-radius: 10px;
 }
 
+.noteCard small {
+  color: #6b7280;
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
 .notesHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+}
+
+.noteText {
+  color: #111827;
+  font-size: 15px;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
 }
