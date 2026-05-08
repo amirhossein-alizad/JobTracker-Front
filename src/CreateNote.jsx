@@ -47,27 +47,58 @@ function CreateNote() {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h2>Create Note</h2>
+        <div className="page">
+            <div className="container">
+                <div className="card">
 
-            {error && (
-                <p style={{ color: "red" }}>
-                    {error}
-                </p>
-            )}
+                    <div className="topBar">
+                        <div>
+                            <h2>Create Note</h2>
+                            <p className="subtitle">
+                                Add a note to this application
+                            </p>
+                        </div>
 
-            <form onSubmit={handleSubmit}>
+                        <button
+                            className="btn secondary"
+                            type="button"
+                            onClick={() => navigate(-1)}
+                        >
+                            Back
+                        </button>
+                    </div>
 
-                <input
-                    name="Text"
-                    placeholder="Text"
-                    value={form.Text}
-                    onChange={handleChange}
-                />
-                <br />
+                    {error && (
+                        <div className="errorBox">
+                            {error}
+                        </div>
+                    )}
 
-                <button type="submit">Create</button>
-            </form>
+                    <form onSubmit={handleSubmit}>
+
+                        <div className="formField">
+                            <label>Note</label>
+
+                            <textarea
+                                className="textarea"
+                                name="Text"
+                                placeholder="Write your note here..."
+                                value={form.Text}
+                                onChange={handleChange}
+                                rows={6}
+                            />
+                        </div>
+
+                        <div className="formActions">
+                            <button className="btn primary" type="submit">
+                                Create Note
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
         </div>
     );
 }

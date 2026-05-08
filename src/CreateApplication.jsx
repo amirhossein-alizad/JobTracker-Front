@@ -46,63 +46,108 @@ function CreateApplication() {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h2>Create Application</h2>
+        <div className="page">
+            <div className="container">
+                <div className="card">
+                    <div className="topBar">
+                        <div>
+                            <h2>Create Application</h2>
+                            <p className="subtitle">
+                                Add a new job application to your tracker
+                            </p>
+                        </div>
 
-            {error && (
-                <p style={{ color: "red" }}>
-                    {error}
-                </p>
-            )}
+                        <button
+                            className="btn secondary"
+                            type="button"
+                            onClick={() => navigate("/")}
+                        >
+                            Back
+                        </button>
+                    </div>
 
-            <form onSubmit={handleSubmit}>
-                <input
-                    name="username"
-                    placeholder="Username"
-                    value={form.username}
-                    onChange={handleChange}
-                />
-                <br />
+                    {error && (
+                        <div className="errorBox">
+                            {error}
+                        </div>
+                    )}
 
-                <input
-                    name="company"
-                    placeholder="Company"
-                    value={form.company}
-                    onChange={handleChange}
-                />
-                <br />
+                    <form onSubmit={handleSubmit} className="formGrid">
 
-                <input
-                    name="roleTitle"
-                    placeholder="Role Title"
-                    value={form.roleTitle}
-                    onChange={handleChange}
-                />
-                <br />
+                        <div className="formField">
+                            <label>Username</label>
 
-                <input
-                    name="location"
-                    placeholder="Location"
-                    value={form.location}
-                    onChange={handleChange}
-                />
-                <br />
+                            <input
+                                className="input"
+                                name="username"
+                                placeholder="Username"
+                                value={form.username}
+                                onChange={handleChange}
+                            />
+                        </div>
 
-                <select
-                    name="status"
-                    value={form.status}
-                    onChange={handleChange}
-                >
-                    <option value="APPLIED">APPLIED</option>
-                    <option value="SCREENING">SCREENING</option>
-                    <option value="INTERVIEW">INTERVIEW</option>
-                    <option value="OFFER">OFFER</option>
-                    <option value="REJECTED">REJECTED</option>
-                </select>
-                <br />
+                        <div className="formField">
+                            <label>Company</label>
 
-                <button type="submit">Create</button>
-            </form>
+                            <input
+                                className="input"
+                                name="company"
+                                placeholder="Company"
+                                value={form.company}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="formField">
+                            <label>Role Title</label>
+
+                            <input
+                                className="input"
+                                name="roleTitle"
+                                placeholder="Role Title"
+                                value={form.roleTitle}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="formField">
+                            <label>Location</label>
+
+                            <input
+                                className="input"
+                                name="location"
+                                placeholder="Location"
+                                value={form.location}
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="formField">
+                            <label>Status</label>
+
+                            <select
+                                className="select"
+                                name="status"
+                                value={form.status}
+                                onChange={handleChange}
+                            >
+                                <option value="APPLIED">APPLIED</option>
+                                <option value="SCREENING">SCREENING</option>
+                                <option value="INTERVIEW">INTERVIEW</option>
+                                <option value="OFFER">OFFER</option>
+                                <option value="REJECTED">REJECTED</option>
+                            </select>
+                        </div>
+
+                        <div className="formActions">
+                            <button className="btn primary" type="submit">
+                                Create Application
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
     );
 }
