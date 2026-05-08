@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useParams, useNavigate} from "react-router-dom";
 import "./App.css";
 
 function ApplicationDetails() {
-    const { id } = useParams();
+    const {id} = useParams();
     const navigate = useNavigate();
     const [application, setApplication] = useState(null);
     const [notes, setNotes] = useState(null);
@@ -59,22 +59,22 @@ function ApplicationDetails() {
                     </button>
 
                     <button className="btn danger"
-                        onClick={async () => {
-                            try {
-                                const res = await fetch(`http://localhost:8080/applications?id=` + application.id, {
-                                    method: "DELETE"
-                                });
+                            onClick={async () => {
+                                try {
+                                    const res = await fetch(`http://localhost:8080/applications?id=` + application.id, {
+                                        method: "DELETE"
+                                    });
 
-                                if (!res.ok) {
-                                    throw new Error("Failed to delete application");
+                                    if (!res.ok) {
+                                        throw new Error("Failed to delete application");
+                                    }
+                                    navigate("/")
+
+                                } catch (err) {
+                                    console.error(err);
+                                    alert(err.message);
                                 }
-                                navigate("/")
-
-                            } catch (err) {
-                                console.error(err);
-                                alert(err.message);
-                            }
-                        }}
+                            }}
                     >
                         - Remove Application
                     </button>
@@ -115,8 +115,33 @@ function ApplicationDetails() {
                     <div className="notesList">
                         {notes.map((note) => (
                             <div className="noteCard" key={note.id}>
-                                <p>{note.text}</p>
-                                <small>{note.createdAt}</small>
+                                <div>
+                                    <p>{note.text}</p>
+                                    <small>{note.createdAt}</small>
+                                </div>
+                                <button
+                                    className="btn danger"
+                                    onClick={async (e) => {
+                                        e.stopPropagation();
+
+                                        try {
+                                            const res = await fetch(`http://localhost:8080/notes?id=${note.id}`, {
+                                                method: "DELETE"
+                                            });
+
+                                            if (!res.ok) {
+                                                throw new Error("Failed to delete note");
+                                            }
+
+                                            setNotes(notes.filter(n => n.id !== note.id));
+                                        } catch (err) {
+                                            console.error(err);
+                                            alert(err.message);
+                                        }
+                                    }}
+                                >
+                                    Remove
+                                </button>
                             </div>
                         ))}
                     </div>

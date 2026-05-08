@@ -40,7 +40,7 @@ function CreateNote() {
                 throw new Error(text || "Failed to create note");
             }
 
-            navigate("/");
+            navigate(`/applications/${applicationId}`);
         } catch (err) {
             setError(err.message);
         }
