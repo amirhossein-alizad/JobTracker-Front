@@ -11,6 +11,7 @@ function App() {
         "REJECTED",
         "WITHDRAWN"
     ];
+    const username = localStorage.getItem("username");
 
     useEffect(() => {
         fetch("http://localhost:8080/applications")
@@ -25,12 +26,27 @@ function App() {
                 <div className="topBar">
                     <div>
                         <h1>Applications</h1>
+                        <p className="subtitle">Logged in as <strong>{username}</strong></p>
                         <p className="subtitle">Track your job applications</p>
                     </div>
 
-                    <button className="btn primary" onClick={() => navigate("/create")}>
-                        + Add Application
-                    </button>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+
+
+                        <button className="btn primary" onClick={() => navigate("/create")}>
+                            + Add Application
+                        </button>
+
+                        <button
+                            className="btn danger"
+                            onClick={() => {
+                                localStorage.removeItem("username");
+                                navigate("/login");
+                            }}
+                        >
+                            Logout
+                        </button>
+                    </div>
                 </div>
 
                 {applications.length === 0 ? (
