@@ -23,33 +23,43 @@ function Login() {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h1>Login</h1>
+        <div className="page credential">
+            <div className="container">
+                <div className="card authCard">
+                    <h1>Login</h1>
 
-            <form onSubmit={handleSubmit}>
-                <input
-                    name="username"
-                    placeholder="Username"
-                    value={form.username}
-                    onChange={handleChange}
-                />
-                <br />
+                    <p className="subtitle">
+                        Sign in to continue tracking your job applications.
+                    </p>
 
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    value={form.password}
-                    onChange={handleChange}
-                />
-                <br />
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            className="input"
+                            name="username"
+                            placeholder="Username"
+                            value={form.username}
+                            onChange={handleChange}
+                        />
 
-                <button type="submit">Login</button>
-            </form>
+                        <input
+                            className="input"
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            value={form.password}
+                            onChange={handleChange}
+                        />
 
-            <p>
-                No account? <Link to="/signup">Sign up</Link>
-            </p>
+                        <button className="btn authButton credential" type="submit">
+                            Login
+                        </button>
+                    </form>
+
+                    <p className="subtitle" style={{ marginTop: "16px" }}>
+                        No account? <Link to="/signup">Sign up</Link>
+                    </p>
+                </div>
+            </div>
         </div>
     );
 }

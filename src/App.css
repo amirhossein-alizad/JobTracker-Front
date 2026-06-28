@@ -43,6 +43,36 @@ body {
   color: white;
 }
 
+.authCard {
+  width: 100%;
+  max-width: 450px;
+  min-height: 300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.authButton {
+  width: 100%;
+}
+
+.btn.credential {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 12px;
+  background: #2563eb;
+  color: white;
+}
+
+.btn.credential:hover {
+  background-color: #1d4ed8;
+}
+
 .btn.secondary {
   background: #e5e7eb;
 }
@@ -267,4 +297,26 @@ body {
   outline: none;
   border-color: #60a5fa;
   box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.page.credential {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

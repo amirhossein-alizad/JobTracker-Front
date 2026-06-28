@@ -23,33 +23,44 @@ function Signup() {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <h1>Sign Up</h1>
+        <div className="page credential">
+            <div className="container">
+                <div className="card authCard">
+                    <h1>Sign Up</h1>
 
-            <form onSubmit={handleSubmit}>
-                <input
-                    name="username"
-                    placeholder="Username"
-                    value={form.username}
-                    onChange={handleChange}
-                />
-                <br />
+                    <p className="subtitle">
+                        Create an account to start tracking your applications.
+                    </p>
 
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    value={form.password}
-                    onChange={handleChange}
-                />
-                <br />
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            className="input"
+                            name="username"
+                            placeholder="Username"
+                            value={form.username}
+                            onChange={handleChange}
+                        />
 
-                <button type="submit">Create Account</button>
-            </form>
+                        <input
+                            className="input"
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            value={form.password}
+                            onChange={handleChange}
+                        />
+m
+                        <button className="btn authButton credential" type="submit">
+                            Create Account
+                        </button>
+                    </form>
 
-            <p>
-                Already have an account? <Link to="/login">Login</Link>
-            </p>
+                    <p className="subtitle" style={{ marginTop: "16px" }}>
+                        Already have an account?{" "}
+                        <Link to="/login">Login</Link>
+                    </p>
+                </div>
+            </div>
         </div>
     );
 }
