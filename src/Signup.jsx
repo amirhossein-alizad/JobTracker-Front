@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 function Signup() {
-    console.log("Signup component loaded");
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -19,8 +18,6 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("submit clicked");
-        setError("");
 
         try {
             const res = await fetch("http://localhost:8080/users", {
@@ -30,10 +27,8 @@ function Signup() {
                 },
                 body: JSON.stringify(form)
             });
-            console.log(res.status);
 
             if (res.status === 409) {
-                console.log("User already exists!");
                 const text = await res.text();
                 throw new Error("User already exists.");
             } else if (res.status !== 409 && !res.ok) {

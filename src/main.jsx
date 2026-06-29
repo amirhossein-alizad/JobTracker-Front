@@ -36,9 +36,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Login />
                 </PublicRoute>}/>
             <Route path="/signup" element={
-                <publicRoute>
+                <PublicRoute>
                     <Signup />
-                </publicRoute>}/>
+                </PublicRoute>}/>
             <Route path="/" element={
                 <ProtectedRoute>
                     <App />

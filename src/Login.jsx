@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import {useState} from "react";
+import {useNavigate, Link} from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
+    const [error, setError] = useState("");
+
 
     const [form, setForm] = useState({
         username: "",
@@ -10,16 +12,37 @@ function Login() {
     });
 
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm({...form, [e.target.name]: e.target.value});
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // fake login for now
-        localStorage.setItem("username", form.username);
+        try {
+            const res = await fetch("http://localhost:8080/users/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(form)
+            });
 
-        navigate("/");
+            if (res.status === 401) {
+                throw new Error("Invalid Credentials.");
+            } else if (res.status !== 401 && res.status !== 200) {
+                throw new Error("Login attempt failed.");
+            }
+
+            localStorage.setItem("username", form.username);
+
+            navigate("/");
+
+
+        } catch (err) {
+            setError(err.message);
+        }
+
+        // fake login for now
     };
 
     return (
@@ -31,6 +54,11 @@ function Login() {
                     <p className="subtitle">
                         Sign in to continue tracking your job applications.
                     </p>
+                    {error && (
+                        <div className="error">
+                            {error}
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit}>
                         <input
@@ -55,7 +83,7 @@ function Login() {
                         </button>
                     </form>
 
-                    <p className="subtitle" style={{ marginTop: "16px" }}>
+                    <p className="subtitle" style={{marginTop: "16px"}}>
                         No account? <Link to="/signup">Sign up</Link>
                     </p>
                 </div>
