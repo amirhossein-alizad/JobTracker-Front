@@ -40,7 +40,7 @@ function App() {
                         <button
                             className="btn danger"
                             onClick={() => {
-                                localStorage.removeItem("username");
+                                localStorage.clear();
                                 navigate("/login");
                             }}
                         >

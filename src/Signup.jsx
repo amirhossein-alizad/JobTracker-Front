@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 function Signup() {
+    console.log("Signup component loaded");
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -9,17 +10,46 @@ function Signup() {
         password: ""
     });
 
+    const [error, setError] = useState("");
+
+
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("submit clicked");
+        setError("");
 
-        // fake signup for now
-        localStorage.setItem("username", form.username);
+        try {
+            const res = await fetch("http://localhost:8080/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(form)
+            });
+            console.log(res.status);
 
-        navigate("/");
+            if (res.status === 409) {
+                console.log("User already exists!");
+                const text = await res.text();
+                throw new Error("User already exists.");
+            } else if (res.status !== 409 && !res.ok) {
+                const text = await res.text();
+                throw new Error("Failed to create user.");
+            }
+            localStorage.setItem("username", form.username);
+
+            navigate("/");
+
+
+        } catch (err) {
+            setError(err.message);
+        }
+
+
     };
 
     return (
@@ -31,6 +61,12 @@ function Signup() {
                     <p className="subtitle">
                         Create an account to start tracking your applications.
                     </p>
+
+                    {error && (
+                        <div className="error">
+                            {error}
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit}>
                         <input
@@ -49,7 +85,7 @@ function Signup() {
                             value={form.password}
                             onChange={handleChange}
                         />
-m
+
                         <button className="btn authButton credential" type="submit">
                             Create Account
                         </button>

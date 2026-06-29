@@ -33,27 +33,24 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Routes>
             <Route path="/login" element={
                 <PublicRoute>
-                    <Login/>
+                    <Login />
                 </PublicRoute>}/>
-            <Route path="/signup" element={
-                <PublicRoute>
-                    <Signup/>
-                </PublicRoute>}/>
+            <Route path="/signup" element={<Signup />}/>
             <Route path="/" element={
                 <ProtectedRoute>
-                    <App/>
+                    <App />
                 </ProtectedRoute>}/>
             <Route path="/create" element={
                 <ProtectedRoute>
-                    <CreateApplication/>
+                    <CreateApplication />
                 </ProtectedRoute>}/>
             <Route path="/applications/:id" element={
                 <ProtectedRoute>
-                    <ApplicationDetails/>
+                    <ApplicationDetails />
                 </ProtectedRoute>}/>
             <Route path="/notes/create" element={
                 <ProtectedRoute>
-                    <CreateNote/>
+                    <CreateNote />
                 </ProtectedRoute>}/>
         </Routes>
     </BrowserRouter>

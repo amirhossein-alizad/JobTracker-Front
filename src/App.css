@@ -320,3 +320,12 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 12px 0;
+  border: 1px solid #fecaca;
+}
