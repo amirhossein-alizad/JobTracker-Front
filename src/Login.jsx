@@ -33,16 +33,14 @@ function Login() {
                 throw new Error("Login attempt failed.");
             }
 
-            localStorage.setItem("username", form.username);
+            const data = await res.json();
 
+            localStorage.setItem("token", data.token);
             navigate("/");
-
 
         } catch (err) {
             setError(err.message);
         }
-
-        // fake login for now
     };
 
     return (

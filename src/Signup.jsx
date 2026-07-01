@@ -29,14 +29,14 @@ function Signup() {
             });
 
             if (res.status === 409) {
-                const text = await res.text();
                 throw new Error("User already exists.");
             } else if (res.status !== 409 && !res.ok) {
-                const text = await res.text();
                 throw new Error("Failed to create user.");
             }
-            localStorage.setItem("username", form.username);
 
+            const data = await res.json();
+
+            localStorage.setItem("token", data.token);
             navigate("/");
 
 

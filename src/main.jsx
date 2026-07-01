@@ -9,7 +9,7 @@ import CreateNote from "./CreateNote.jsx"
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 
 function ProtectedRoute({children}) {
-    const currentUser = localStorage.getItem("username");
+    const currentUser = localStorage.getItem("token");
 
     if (!currentUser) {
         return <Navigate to="/login" replace/>;

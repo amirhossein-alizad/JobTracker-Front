@@ -11,10 +11,17 @@ function App() {
         "REJECTED",
         "WITHDRAWN"
     ];
-    const username = localStorage.getItem("username");
 
+    const token = localStorage.getItem("token");
     useEffect(() => {
-        fetch("http://localhost:8080/applications")
+        fetch("http://localhost:8080/applications", {
+            method: "GET",
+            headers: {
+                // 2. Inject the token into the headers
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
             .then((res) => res.json())
             .then((data) => setApplications(data))
             .catch((err) => console.error(err));
