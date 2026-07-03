@@ -23,10 +23,23 @@ function App() {
                 "Content-Type": "application/json"
             }
         })
-            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === 401) {
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                    return null;
+                }
+
+                if (!res.ok) {
+                    throw new Error("Failed to fetch applications");
+                }
+
+                return res.json();
+            })
             .then((data) => setApplications(data))
             .catch((err) => console.error(err));
     }, []);
+
 
     return (
         <div className="page">
