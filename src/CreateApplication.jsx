@@ -5,7 +5,6 @@ function CreateApplication() {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        username: "",
         company: "",
         roleTitle: "",
         location: "",
@@ -29,10 +28,16 @@ function CreateApplication() {
             const res = await fetch("http://localhost:8080/applications", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
                 },
                 body: JSON.stringify(form)
             });
+
+            if(res.status === 401) {
+                localStorage.removeItem("token");
+                navigate("/login");
+            }
 
             if (!res.ok) {
                 const text = await res.text();
@@ -73,18 +78,6 @@ function CreateApplication() {
                     )}
 
                     <form onSubmit={handleSubmit} className="formGrid">
-
-                        <div className="formField">
-                            <label>Username</label>
-
-                            <input
-                                className="input"
-                                name="username"
-                                placeholder="Username"
-                                value={form.username}
-                                onChange={handleChange}
-                            />
-                        </div>
 
                         <div className="formField">
                             <label>Company</label>
