@@ -30,10 +30,16 @@ function CreateNote() {
             const res = await fetch(`http://localhost:8080/notes/${applicationId}`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
                 },
                 body: JSON.stringify(form)
             });
+
+            if(res.status === 401) {
+                localStorage.removeItem("token");
+                navigate("/login");
+            }
 
             if (!res.ok) {
                 const text = await res.text();

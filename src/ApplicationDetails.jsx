@@ -11,7 +11,13 @@ function ApplicationDetails() {
     useEffect(() => {
         if (!id) return;
 
-        fetch(`http://localhost:8080/applications/${id}`)
+        fetch(`http://localhost:8080/applications/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+        })
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("Application not found");
@@ -28,7 +34,13 @@ function ApplicationDetails() {
     useEffect(() => {
         if (!id) return;
 
-        fetch(`http://localhost:8080/notes/application/${id}`)
+        fetch(`http://localhost:8080/notes/application/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+        })
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("Notes not found");
