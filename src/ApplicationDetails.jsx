@@ -74,7 +74,10 @@ function ApplicationDetails() {
                             onClick={async () => {
                                 try {
                                     const res = await fetch(`http://localhost:8080/applications?id=` + application.id, {
-                                        method: "DELETE"
+                                        method: "DELETE",
+                                        headers: {
+                                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+                                        }
                                     });
 
                                     if (!res.ok) {
@@ -138,7 +141,10 @@ function ApplicationDetails() {
 
                                         try {
                                             const res = await fetch(`http://localhost:8080/notes?id=${note.id}`, {
-                                                method: "DELETE"
+                                                method: "DELETE",
+                                                headers: {
+                                                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                                                }
                                             });
 
                                             if (!res.ok) {
